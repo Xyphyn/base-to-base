@@ -33,15 +33,15 @@ impl std::str::FromStr for Base {
 }
 
 #[derive(Parser, Debug)]
-#[command(author("Xylight"), version, about, long_about = None)]
+#[command(author, version, about, long_about = None)]
 struct Args {
-    #[arg(value_enum)]
-    base: Base,
-
     #[arg(value_enum, short, long)]
     to: Option<Base>,
 
     number: Option<String>,
+
+    #[arg(value_enum, default_value_t=Base::Dec)]
+    base: Base,
 }
 
 fn parse_number(number: &String, base: Base) -> Result<i128, num::ParseIntError> {
@@ -84,17 +84,12 @@ fn base_to_str(number: i128, out_base: Base) -> String {
 fn main() {
     let args = Args::parse();
 
-    if args.number.is_none() {
-        println!("Invalid number");
-        return;
-    }
-
     let number_str = args.number.unwrap();
 
     let number = parse_number(&number_str, args.base);
 
     if number.is_err() {
-        println!("Invalid number");
+        println!("Invalid number for base");
         return;
     }
 
