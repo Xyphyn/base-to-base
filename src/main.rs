@@ -1,3 +1,6 @@
+extern crate btb;
+extern crate clap;
+
 use btb::{base_to_str, parse_number, Base};
 use clap::Parser;
 

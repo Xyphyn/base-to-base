@@ -1,4 +1,5 @@
-use std::num;
+extern crate clap;
+use std::{convert::TryInto, num};
 
 use clap::ValueEnum;
 
