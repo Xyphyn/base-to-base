@@ -1,7 +1,15 @@
 [package]
 name = "btb"
 version = "0.1.0"
-edition = "2021"
+authors = ["Xylight <xylight@xylight.dev>"]
+description = "Base to base, a Rust tool to convert numbers between bases"
+readme = "README.md"
+homepage = "https://github.com/Xyphyn/base-to-base"
+repository = "https://github.com/Xyphyn/base-to-base"
+keywords = ["cli", "base", "convert"]
+categories = ["command-line-utilities"]
+license = "GPL-3.0"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
