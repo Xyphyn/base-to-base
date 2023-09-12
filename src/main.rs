@@ -10,7 +10,7 @@ struct Args {
     #[arg(value_enum, short, long)]
     to: Option<Base>,
 
-    number: Option<String>,
+    number: String,
 
     #[arg(value_enum, default_value_t=Base::Dec)]
     base: Base,
@@ -19,9 +19,7 @@ struct Args {
 fn main() {
     let args = Args::parse();
 
-    let number_str = args.number.unwrap();
-
-    let number = parse_number(&number_str, args.base);
+    let number = parse_number(&args.number, args.base);
 
     if number.is_err() {
         println!("Invalid number for base");
