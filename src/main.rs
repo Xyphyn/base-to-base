@@ -14,18 +14,43 @@ struct Args {
 
     number: String,
 
-    #[arg(value_enum, default_value_t=Base::Dec)]
-    base: Base,
+    #[arg(value_enum)]
+    base: Option<Base>,
 }
 
 fn format_line(prefix: &str, number: String) -> String {
     format!("\x1b[37;1m{}: \x1b[0m{}", prefix, number)
 }
 
+fn get_str_base(string: String) -> (Base, String) {
+    let string = string.to_lowercase();
+
+    if let Some(stripped) = string.strip_prefix("0x") {
+        return (Base::Hex, stripped.to_string());
+    }
+
+    if let Some(stripped) = string.strip_prefix("0b") {
+        return (Base::Bin, stripped.to_string());
+    }
+
+    if let Some(stripped) = string.strip_prefix('0') {
+        return (Base::Oct, stripped.to_string());
+    }
+
+    (Base::Dec, string)
+}
+
 fn main() {
     let args = Args::parse();
 
-    let number = match parse_number(&args.number, args.base) {
+    let str_base = get_str_base(String::from(&args.number));
+
+    let base = match args.base {
+        Some(base) => base,
+        None => str_base.0,
+    };
+
+    let number = match parse_number(&str_base.1, base) {
         Ok(number) => number,
         Err(_) => {
             println!("Invalid number for base");
