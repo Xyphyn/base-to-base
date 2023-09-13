@@ -4,6 +4,16 @@
 
 It aims to be as quick to use as possible.
 
+## Install
+
+You'll need [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) for this.
+
+```
+cargo install btb
+```
+
+This will place `btb` in `~/.cargo/bin`. Make sure it's in your `PATH`.
+
 ## Usage
 
 ```
