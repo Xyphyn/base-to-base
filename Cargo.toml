@@ -1,6 +1,6 @@
 [package]
 name = "btb"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Xylight <xylight@xylight.dev>"]
 description = "Base to base, a Rust tool to convert numbers between bases"
 readme = "README.md"

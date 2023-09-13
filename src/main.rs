@@ -1,6 +1,8 @@
 extern crate btb;
 extern crate clap;
 
+use std::process;
+
 use btb::{base_to_str, parse_number, Base};
 use clap::Parser;
 
@@ -16,29 +18,32 @@ struct Args {
     base: Base,
 }
 
+fn format_line(prefix: &str, number: String) -> String {
+    format!("\x1b[37;1m{}: \x1b[0m{}", prefix, number)
+}
+
 fn main() {
     let args = Args::parse();
 
-    let number = parse_number(&args.number, args.base);
-
-    if number.is_err() {
-        println!("Invalid number for base");
-        return;
-    }
-
-    let number = number.unwrap();
+    let number = match parse_number(&args.number, args.base) {
+        Ok(number) => number,
+        Err(_) => {
+            println!("Invalid number for base");
+            process::exit(1);
+        }
+    };
 
     if args.to.is_none() {
         println!(
-            "\x1b[37;1mHex: \x1b[0m{}
-\x1b[37;1mDec: \x1b[0m{}
-\x1b[37;1mOct: \x1b[0m{}
-\x1b[37;1mBin: \x1b[0m{}
+            "{}
+{}
+{}
+{}
         ",
-            base_to_str(number, Base::Hex),
-            base_to_str(number, Base::Dec),
-            base_to_str(number, Base::Oct),
-            base_to_str(number, Base::Bin),
+            format_line("Hex", base_to_str(number, Base::Hex)),
+            format_line("Dec", base_to_str(number, Base::Dec)),
+            format_line("Oct", base_to_str(number, Base::Oct)),
+            format_line("Bin", base_to_str(number, Base::Bin)),
         )
     } else {
         let to = args.to.unwrap();

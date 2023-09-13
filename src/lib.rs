@@ -33,13 +33,13 @@ impl std::str::FromStr for Base {
     }
 }
 
-pub fn parse_number(number: &String, base: Base) -> Result<i128, num::ParseIntError> {
-    return match base {
+pub fn parse_number(number: &str, base: Base) -> Result<i128, num::ParseIntError> {
+    match base {
         Base::Hex => i128::from_str_radix(number, 16),
-        Base::Dec => i128::from_str_radix(number, 10),
+        Base::Dec => number.parse::<i128>(),
         Base::Oct => i128::from_str_radix(number, 8),
         Base::Bin => i128::from_str_radix(number, 2),
-    };
+    }
 }
 
 pub fn format_radix(mut x: i128, radix: i128) -> String {
@@ -47,7 +47,7 @@ pub fn format_radix(mut x: i128, radix: i128) -> String {
 
     loop {
         let m = x % radix;
-        x = x / radix;
+        x /= radix;
 
         // will panic if you use a bad radix (< 2 or > 36).
         result.push(std::char::from_digit(m.try_into().unwrap(), radix as u32).unwrap());
@@ -59,7 +59,7 @@ pub fn format_radix(mut x: i128, radix: i128) -> String {
 }
 
 pub fn base_to_str(number: i128, out_base: Base) -> String {
-    return format_radix(
+    format_radix(
         number,
         match out_base {
             Base::Hex => 16,
@@ -67,7 +67,7 @@ pub fn base_to_str(number: i128, out_base: Base) -> String {
             Base::Oct => 8,
             Base::Bin => 2,
         },
-    );
+    )
 }
 
 #[cfg(test)]
@@ -76,10 +76,10 @@ mod tests {
 
     #[test]
     fn numbers_parse() {
-        assert_eq!(parse_number(&String::from("f"), Base::Hex), Ok(15));
-        assert_eq!(parse_number(&String::from("15"), Base::Dec), Ok(15));
-        assert_eq!(parse_number(&String::from("17"), Base::Oct), Ok(15));
-        assert_eq!(parse_number(&String::from("1111"), Base::Bin), Ok(15));
+        assert_eq!(parse_number("f", Base::Hex), Ok(15));
+        assert_eq!(parse_number("15", Base::Dec), Ok(15));
+        assert_eq!(parse_number("17", Base::Oct), Ok(15));
+        assert_eq!(parse_number("1111", Base::Bin), Ok(15));
     }
 
     #[test]
