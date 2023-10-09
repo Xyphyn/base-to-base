@@ -6,7 +6,7 @@ It aims to be as quick to use as possibe.
 
 ## Install
 
-You'll need [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) for this.
+You'll need [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) for this.
 
 ```
 cargo install btb
