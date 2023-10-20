@@ -34,6 +34,3 @@ bin b
 ```
 --to <Base>: output just one base in plaintext
 ```
-
-
-
