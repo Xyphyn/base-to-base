@@ -12,8 +12,6 @@ You'll need to install [Cargo](https://doc.rust-lang.org/cargo/getting-started/i
 cargo install btb
 ```
 
-
-
 This will place `btb` in `~/.cargo/bin`. Make sure it's in your `PATH`.
 
 
