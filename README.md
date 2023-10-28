@@ -14,7 +14,6 @@ cargo install btb
 
 This will place `btb` in `~/.cargo/bin`. Make sure it's in your `PATH`.
 
-
 ## Usage
 
 ```
